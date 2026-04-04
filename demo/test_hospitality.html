@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Riverside Grand Hotel — Luxury Suites · Austin</title>
+  <meta name="description" content="Riverside Grand Hotel delivers a premium hospitality experience in Austin." />
+
+  <!-- Fonts: Playfair Display (headlines) + Nunito (body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Nunito:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <!-- AOS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js" defer></script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:     #0f0a06;
+      --fg:     #f7f0e8;
+      --accent: #c97d3f;
+      --muted:  #8a7060;
+      --warm:   color-mix(in srgb, var(--accent) 8%, var(--bg));
+      --radius: 16px;
+      --font-display: 'Playfair Display', Georgia, serif;
+      --font-body:    'Nunito', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--fg);
+      font-family: var(--font-body);
+      font-weight: 400;
+      line-height: 1.65;
+    }
+
+    /* ── NAV ── */
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.4rem 3rem;
+      background: var(--bg);
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .nav-logo {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--fg);
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 0.9rem;
+      font-weight: 400;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--accent); }
+
+    .nav-phone {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    /* ── HERO: SPLIT ── */
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 88vh;
+    }
+
+    .hero-content {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 5rem 4rem;
+    }
+
+    .hero-tag {
+      display: inline-block;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1.4rem;
+    }
+
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(2.4rem, 4.5vw, 4rem);
+      font-weight: 700;
+      line-height: 1.15;
+      color: var(--fg);
+      margin-bottom: 1.3rem;
+    }
+
+    .hero-title em {
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    .hero-sub {
+      font-size: 1rem;
+      font-weight: 300;
+      color: var(--muted);
+      max-width: 400px;
+      margin-bottom: 2.5rem;
+      line-height: 1.7;
+    }
+
+    .hero-cta-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+      align-items: flex-start;
+    }
+
+    .btn-warm {
+      display: inline-block;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #fff;
+      background: var(--accent);
+      padding: 1rem 2.4rem;
+      border-radius: 100px;
+      text-decoration: none;
+      transition: opacity 0.25s, transform 0.25s;
+    }
+    .btn-warm:hover { opacity: 0.88; transform: translateY(-2px); }
+
+    .hero-trust {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+
+    .hero-trust-dots {
+      display: flex;
+      gap: -4px;
+    }
+
+    .dot {
+      width: 1.8rem; height: 1.8rem;
+      border-radius: 50%;
+      background: var(--accent);
+      border: 2px solid var(--bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.65rem;
+      font-weight: 700;
+      color: #fff;
+      margin-left: -6px;
+    }
+    .dot:first-child { margin-left: 0; }
+
+    .hero-image-side {
+      position: relative;
+      overflow: hidden;
+      background: var(--warm);
+    }
+
+    .hero-image-side img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    <img src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?auto=format&fit=crop&w=2000&q=80" alt="hero image 1" loading="lazy" decoding="async" referrerpolicy="no-referrer" />
+
+    /* ── STATS RIBBON ── */
+    .stats-ribbon {
+      background: var(--accent);
+      padding: 2rem 3rem;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+    }
+
+    .stat-item {
+      text-align: center;
+    }
+
+    .stat-number {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1;
+      margin-bottom: 0.3rem;
+    }
+
+    .stat-label {
+      font-size: 0.78rem;
+      font-weight: 400;
+      color: rgba(255,255,255,0.75);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    /* ── SERVICES ── */
+    .section-services {
+      padding: 6rem 3rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 3.5rem;
+    }
+
+    .section-eyebrow {
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.8rem;
+    }
+
+    .section-heading {
+      font-family: var(--font-display);
+      font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+      font-weight: 700;
+      line-height: 1.2;
+      color: var(--fg);
+    }
+
+    .section-heading em { font-style: italic; color: var(--accent); }
+
+    .services-list {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+
+    .svc-card {
+      border: 1.5px solid rgba(0,0,0,0.07);
+      border-radius: var(--radius);
+      padding: 2rem;
+      transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s;
+      background: var(--bg);
+    }
+
+    .svc-card:hover {
+      border-color: var(--accent);
+      box-shadow: 0 8px 30px rgba(0,0,0,0.06);
+      transform: translateY(-3px);
+    }
+
+    .svc-icon {
+      width: 2.8rem; height: 2.8rem;
+      border-radius: 12px;
+      background: color-mix(in srgb, var(--accent) 12%, transparent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      margin-bottom: 1.2rem;
+    }
+
+    .svc-title {
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: var(--fg);
+      margin-bottom: 0.5rem;
+    }
+
+    .svc-body {
+      font-size: 0.88rem;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
+    /* ── ABOUT SPLIT (reversed) ── */
+    .section-about {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      background: var(--warm);
+    }
+
+    .about-text {
+      padding: 6rem 4rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .about-image {
+      position: relative;
+      overflow: hidden;
+      min-height: 500px;
+    }
+
+    .about-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=2000&q=80" alt="about image 1" loading="lazy" decoding="async" referrerpolicy="no-referrer" />
+
+    .feature-list {
+      list-style: none;
+      margin: 1.5rem 0 2.5rem;
+    }
+
+    .feature-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.8rem;
+      font-size: 0.9rem;
+      color: var(--fg);
+      padding: 0.5rem 0;
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+    }
+
+    .feature-list li::before {
+      content: '✓';
+      color: var(--accent);
+      font-weight: 700;
+      flex-shrink: 0;
+      margin-top: 0.1rem;
+    }
+
+    /* ── TESTIMONIALS ── */
+    .section-testimonials {
+      padding: 6rem 3rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .testimonials-masonry {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.2rem;
+      margin-top: 3rem;
+    }
+
+    .tm-card {
+      background: var(--warm);
+      border-radius: var(--radius);
+      padding: 2rem 2.2rem;
+      border-left: 3px solid var(--accent);
+    }
+
+    .tm-quote {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: 1.05rem;
+      color: var(--fg);
+      line-height: 1.65;
+      margin-bottom: 1.2rem;
+    }
+
+    .tm-author {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--accent);
+    }
+
+    .tm-location {
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+
+    /* ── CTA ── */
+    .section-cta {
+      padding: 5rem 3rem;
+      text-align: center;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .cta-title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 700;
+      line-height: 1.2;
+      color: var(--fg);
+      margin-bottom: 1rem;
+    }
+
+    .cta-title em { font-style: italic; color: var(--accent); }
+
+    .cta-sub {
+      font-size: 0.95rem;
+      color: var(--muted);
+      margin-bottom: 2.5rem;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--fg);
+      color: var(--bg);
+      padding: 3rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .footer-logo {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--bg);
+    }
+
+    .footer-copy { font-size: 0.78rem; opacity: 0.5; }
+
+    .footer-links { display: flex; gap: 2rem; list-style: none; }
+    .footer-links a {
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.55);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--accent); }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { display: none; }
+      .hero { grid-template-columns: 1fr; min-height: auto; }
+      .hero-content { padding: 4rem 1.5rem; }
+      .hero-image-side { height: 55vw; }
+      .stats-ribbon { grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+      .services-list { grid-template-columns: 1fr; }
+      .section-services { padding: 4rem 1.5rem; }
+      .section-about { grid-template-columns: 1fr; }
+      .about-image { min-height: 300px; }
+      .about-text { padding: 3rem 1.5rem; }
+      .testimonials-masonry { grid-template-columns: 1fr; }
+      .section-testimonials { padding: 4rem 1.5rem; }
+      footer { flex-direction: column; gap: 1.5rem; text-align: center; }
+    }
+  </style>
+<script type="application/json" id="shadow-site-meta">{"design_profile": "PREMIUM_SCROLL", "motion_profile": "premium", "palette": {"bg": "#0f0a06", "fg": "#f7f0e8", "accent": "#c97d3f", "muted": "#8a7060"}, "palette_key": "premium_warm", "business": {"business_name": "Riverside Grand Hotel", "industry": "hospitality", "tone": "premium", "location": "Austin", "primary_service": "Luxury Suites", "secondary_services": ["Spa", "Fine Dining", "Concierge"], "detailed_services": [], "stats": [], "team": [], "primary_cta": "Book Your Stay", "secondary_cta": "View Rooms", "keywords": ["resort", "luxury", "hospitality"], "notes": "Testing visual purity for hospitality archetype."}, "template_id": "local_warmth:index:94e3b11d7d"}</script>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a class="nav-logo" href="#">Riverside Grand Hotel</a>
+    <ul class="nav-links">
+      <li><a href="#services">Services</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#reviews">Reviews</a></li>
+    </ul>
+    <a class="nav-phone" href="tel:">📞 Call Us</a>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-content">
+      <span class="hero-tag">📍 Austin</span>
+      <h1 class="hero-title">
+        Your trusted<br/><em>Luxury Suites</em><br/>in Austin
+      </h1>
+      <p class="hero-sub">Riverside Grand Hotel delivers a premium hospitality experience in Austin.</p>
+      <div class="hero-cta-group">
+        <a class="btn-warm" href="#contact">Book Your Stay</a>
+        <div class="hero-trust">
+          <div class="hero-trust-dots">
+            <div class="dot">A</div>
+            <div class="dot">K</div>
+            <div class="dot">S</div>
+          </div>
+          Trusted by 200+ clients in Austin
+        </div>
+      </div>
+    </div>
+    <div class="hero-image-side">
+      <img src="https://images.unsplash.com/photo-1564501049412-61c2a3083791?auto=format&fit=crop&w=2000&q=80" alt="hero image 2" loading="lazy" decoding="async" referrerpolicy="no-referrer" />
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <div class="stats-ribbon">
+    <div class="stat-item"><div class="stat-number">200+</div><div class="stat-label">Happy Clients</div></div>
+    <div class="stat-item"><div class="stat-number">5★</div><div class="stat-label">Average Rating</div></div>
+    <div class="stat-item"><div class="stat-number">8yr</div><div class="stat-label">In Business</div></div>
+    <div class="stat-item"><div class="stat-number">Austin</div><div class="stat-label">Based Here</div></div>
+  </div>
+
+  <!-- SERVICES -->
+  <section class="section-services" id="services">
+    <div class="section-header" data-aos="fade-up">
+      <p class="section-eyebrow">Our Services</p>
+      <h2 class="section-heading">What we do <em>for you</em></h2>
+    </div>
+    <div class="services-list">
+      <div class="svc-card" data-aos="fade-up">
+        <div class="svc-icon">🌟</div>
+        <h3 class="svc-title">Luxury Suites</h3>
+        <p class="svc-body">Specializing in resort, luxury. We handle every detail so you can focus on what matters.</p>
+      </div>
+      <div class="svc-card" data-aos="fade-up" data-aos-delay="80">
+        <div class="svc-icon">⚡</div>
+        <h3 class="svc-title">Fast Turnaround</h3>
+        <p class="svc-body">We respect your time. Every job is delivered when we say it will be, every time.</p>
+      </div>
+      <div class="svc-card" data-aos="fade-up" data-aos-delay="160">
+        <div class="svc-icon">🤝</div>
+        <h3 class="svc-title">Personal Service</h3>
+        <p class="svc-body">You'll always speak to someone who knows you. No call centres, no runaround.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="section-about" id="about">
+    <div class="about-text" data-aos="fade-right">
+      <p class="section-eyebrow">About Us</p>
+      <h2 class="section-heading">Community first.<br/><em>Always.</em></h2>
+      <p style="font-size:0.95rem; color:var(--muted); margin: 1rem 0; line-height:1.75;">Riverside Grand Hotel delivers a premium hospitality experience in Austin. We've been part of the Austin community for years, building relationships one client at a time.</p>
+      <ul class="feature-list">
+        <li>Locally owned and operated in Austin</li>
+        <li>Fully trained and certified professionals</li>
+        <li>Transparent pricing — no surprises</li>
+        <li>Available 6 days a week</li>
+      </ul>
+      <a class="btn-warm" href="#contact" style="align-self: flex-start;">Book Your Stay</a>
+    </div>
+    <div class="about-image">
+      <img src="https://images.unsplash.com/photo-1431540015161-0bf868a2d407?auto=format&fit=crop&w=2000&q=80" alt="about image 2" loading="lazy" decoding="async" referrerpolicy="no-referrer" />
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="section-testimonials" id="reviews">
+    <div class="section-header" data-aos="fade-up">
+      <p class="section-eyebrow">What Clients Say</p>
+      <h2 class="section-heading">Real words from <em>real people</em></h2>
+    </div>
+    <div class="testimonials-masonry">
+      <div class="tm-card" data-aos="fade-up">
+        <p class="tm-quote">"Best Luxury Suites I've found in Austin. They genuinely care about their customers."</p>
+        <p class="tm-author">Ama K.</p>
+        <p class="tm-location">Austin</p>
+      </div>
+      <div class="tm-card" data-aos="fade-up" data-aos-delay="80">
+        <p class="tm-quote">"Fast, reliable, and always professional. Riverside Grand Hotel has been a game changer for us."</p>
+        <p class="tm-author">Kwame D.</p>
+        <p class="tm-location">Austin</p>
+      </div>
+      <div class="tm-card" data-aos="fade-up" data-aos-delay="120">
+        <p class="tm-quote">"I've recommended them to everyone I know. Honest pricing and great results."</p>
+        <p class="tm-author">Abena M.</p>
+        <p class="tm-location">Austin</p>
+      </div>
+      <div class="tm-card" data-aos="fade-up" data-aos-delay="160">
+        <p class="tm-quote">"Professional team that delivers on their word. You can trust Riverside Grand Hotel."</p>
+        <p class="tm-author">Ernest T.</p>
+        <p class="tm-location">Austin</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section-cta" id="contact">
+    <h2 class="cta-title" data-aos="fade-up">Ready for <em>better</em>?<br/>Get in touch today.</h2>
+    <p class="cta-sub" data-aos="fade-up" data-aos-delay="80">Specializing in resort, luxury. We're right here in Austin.</p>
+    <a class="btn-warm" href="tel:" data-aos="fade-up" data-aos-delay="160" style="font-size:1rem; padding: 1.1rem 3rem;">Book Your Stay</a>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-logo">Riverside Grand Hotel</div>
+    <p class="footer-copy">© 2025 Riverside Grand Hotel · Austin</p>
+    <ul class="footer-links">
+      <li><a href="#services">Services</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </footer>
+
+  <script>
+    window.addEventListener('load', function () {
+      if (typeof AOS !== 'undefined') {
+        AOS.init({ once: true, offset: 50, duration: 650, easing: 'ease-out' });
+      }
+    });
+  </script>
+</body>
+</html>

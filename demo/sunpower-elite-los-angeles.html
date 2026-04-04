@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>The Firm — Energy Independence</title>
+<meta name="description" content="Power The Future."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;700&family=Syne:wght@400;700;800&display=swap" rel="stylesheet"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js" defer></script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#020408;--surface:#080e18;--surface2:#0d1628;
+  --cyan:#00d4ff;--blue:#0066ff;--fg:#e2eeff;--muted:#4a6080;
+  --fd:'Syne',sans-serif;--fb:'Space Grotesk',sans-serif;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--fg);font-family:var(--fb);font-weight:300;overflow-x:hidden;line-height:1.6}
+
+/* GRID LINES BG */
+body::before{
+  content:'';position:fixed;inset:0;
+  background-image:linear-gradient(rgba(0,212,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(0,212,255,.03) 1px,transparent 1px);
+  background-size:80px 80px;pointer-events:none;z-index:0
+}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:1.2rem 3rem;background:rgba(2,4,8,.8);backdrop-filter:blur(20px);border-bottom:1px solid rgba(0,212,255,.08)}
+.logo{font-family:var(--fd);font-size:1rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--fg);text-decoration:none;display:flex;align-items:center;gap:.5rem}
+.logo-mark{width:28px;height:28px;background:linear-gradient(135deg,var(--cyan),var(--blue));clip-path:polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%)}
+.nav-links{display:flex;gap:2.5rem;list-style:none}
+.nav-links a{font-size:.75rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color .2s}
+.nav-links a:hover{color:var(--cyan)}
+.nav-cta{font-size:.72rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--bg);background:var(--cyan);padding:.7rem 1.8rem;text-decoration:none;clip-path:polygon(8px 0%,100% 0%,100% calc(100% - 8px),calc(100% - 8px) 100%,0% 100%,0% 8px);transition:opacity .2s}
+.nav-cta:hover{opacity:.85}
+
+/* HERO */
+.hero{position:relative;min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:8rem 3rem 4rem;overflow:hidden}
+.hero-glow{position:absolute;top:-20%;left:50%;transform:translateX(-50%);width:900px;height:900px;background:radial-gradient(ellipse,rgba(0,102,255,.12) 0%,transparent 70%);pointer-events:none}
+.hero-glow2{position:absolute;bottom:-10%;right:-10%;width:600px;height:600px;background:radial-gradient(ellipse,rgba(0,212,255,.07) 0%,transparent 70%);pointer-events:none}
+.hero-label{font-size:.62rem;letter-spacing:.4em;text-transform:uppercase;color:var(--cyan);margin-bottom:1.5rem;display:flex;align-items:center;gap:1rem;position:relative;z-index:2}
+.hero-label::before{content:'';width:40px;height:1px;background:var(--cyan)}
+.hero-h1{font-family:var(--fd);font-size:clamp(3.5rem,9vw,8.5rem);font-weight:800;line-height:.9;letter-spacing:-.03em;color:var(--fg);position:relative;z-index:2;margin-bottom:2rem}
+.hero-h1 .stroke{-webkit-text-stroke:1px var(--cyan);color:transparent}
+.hero-sub{font-size:1.05rem;color:rgba(226,238,255,.55);max-width:480px;line-height:1.75;position:relative;z-index:2;margin-bottom:3rem}
+.hero-actions{display:flex;gap:1.2rem;position:relative;z-index:2;flex-wrap:wrap}
+.btn-primary{display:inline-flex;align-items:center;gap:.6rem;font-family:var(--fb);font-size:.8rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--bg);background:var(--cyan);padding:1rem 2.2rem;text-decoration:none;clip-path:polygon(10px 0%,100% 0%,100% calc(100% - 10px),calc(100% - 10px) 100%,0% 100%,0% 10px);transition:all .25s}
+.btn-primary:hover{background:var(--blue);color:#fff}
+.btn-outline{display:inline-flex;align-items:center;gap:.6rem;font-family:var(--fb);font-size:.8rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--cyan);border:1px solid rgba(0,212,255,.3);padding:1rem 2.2rem;text-decoration:none;transition:all .25s;backdrop-filter:blur(5px)}
+.btn-outline:hover{border-color:var(--cyan);background:rgba(0,212,255,.06)}
+.hero-stats{position:absolute;right:3rem;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:2.5rem;z-index:2}
+.hstat{text-align:right}
+.hstat-n{font-family:var(--fd);font-size:2.8rem;font-weight:800;line-height:1;background:linear-gradient(135deg,var(--cyan),var(--blue));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hstat-l{font-size:.6rem;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);margin-top:.2rem}
+.hero-scroll{position:absolute;bottom:2.5rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:.6rem;z-index:2}
+.hero-scroll span{font-size:.55rem;letter-spacing:.3em;text-transform:uppercase;color:var(--muted)}
+.scroll-bar{width:1px;height:50px;background:linear-gradient(to bottom,var(--cyan),transparent);animation:scb 2s ease infinite}
+@keyframes scb{0%,100%{opacity:.3;transform:scaleY(.8)}50%{opacity:1;transform:scaleY(1)}}
+
+/* TICKER */
+.ticker{background:var(--cyan);overflow:hidden;padding:.65rem 0;white-space:nowrap}
+.ticker-track{display:inline-flex;animation:tick 30s linear infinite}
+.ticker-track span{font-family:var(--fd);font-size:.72rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--bg);padding:0 2.5rem}
+@keyframes tick{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* BENTO GRID */
+.bento-section{padding:7rem 3rem;position:relative;z-index:1}
+.section-header{margin-bottom:4rem}
+.eyebrow{font-size:.6rem;letter-spacing:.4em;text-transform:uppercase;color:var(--cyan);display:flex;align-items:center;gap:.8rem;margin-bottom:.8rem}
+.eyebrow::before{content:'[';color:var(--muted)}.eyebrow::after{content:']';color:var(--muted)}
+.sec-h{font-family:var(--fd);font-size:clamp(2rem,4vw,3.5rem);font-weight:800;color:var(--fg);line-height:1.05}
+.sec-h em{font-style:italic;color:var(--cyan);font-weight:400}
+.bento{display:grid;grid-template-columns:repeat(12,1fr);grid-auto-rows:min(14vw,160px);gap:1.5px;background:rgba(0,212,255,.06)}
+.bc{position:relative;overflow:hidden;background:var(--surface);transition:background .3s}
+.bc:hover{background:var(--surface2)}
+.bc::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(0,212,255,.04),transparent);opacity:0;transition:opacity .4s}
+.bc:hover::after{opacity:1}
+.bc-1{grid-column:span 5;grid-row:span 2}
+.bc-2{grid-column:span 4;grid-row:span 1}
+.bc-3{grid-column:span 3;grid-row:span 1}
+.bc-4{grid-column:span 4;grid-row:span 1}
+.bc-5{grid-column:span 3;grid-row:span 2}
+.bc-6{grid-column:span 5;grid-row:span 2}
+.bc-7{grid-column:span 4;grid-row:span 1}
+.bc-content{position:absolute;inset:0;padding:2rem;display:flex;flex-direction:column;justify-content:flex-end}
+.bc-num{font-family:var(--fd);font-size:.65rem;font-weight:700;color:var(--cyan);letter-spacing:.22em;margin-bottom:.8rem}
+.bc-title{font-family:var(--fd);font-size:1.15rem;font-weight:700;color:var(--fg);margin-bottom:.4rem}
+.bc-body{font-size:.78rem;color:var(--muted);line-height:1.55}
+.bc-corner{position:absolute;top:1.2rem;right:1.2rem;width:28px;height:28px;border:1px solid rgba(0,212,255,.2);display:flex;align-items:center;justify-content:center;font-size:.7rem;color:var(--cyan)}
+.bc-bg-num{position:absolute;top:-.2rem;right:-.5rem;font-family:var(--fd);font-size:clamp(4rem,8vw,7rem);font-weight:800;color:rgba(0,212,255,.04);line-height:1;pointer-events:none;user-select:none}
+
+/* PARALLAX SPLIT */
+.parallax-section{position:relative;overflow:hidden}
+.ps-wrap{display:grid;grid-template-columns:1fr 1fr;min-height:85vh}
+.ps-sticky{position:sticky;top:0;height:100vh;overflow:hidden;background:var(--surface)}
+.ps-sticky-inner{position:relative;width:100%;height:100%}
+.ps-sticky-inner img{width:100%;height:100%;object-fit:cover;opacity:.7}
+.ps-sticky-overlay{position:absolute;inset:0;background:linear-gradient(to right,rgba(2,4,8,.6),transparent)}
+.ps-sticky-badge{position:absolute;bottom:3rem;left:3rem;background:rgba(0,212,255,.12);backdrop-filter:blur(12px);border:1px solid rgba(0,212,255,.2);padding:1.2rem 1.8rem}
+.psb-label{font-size:.58rem;letter-spacing:.28em;text-transform:uppercase;color:var(--cyan);margin-bottom:.3rem}
+.psb-val{font-family:var(--fd);font-size:1.8rem;font-weight:800;color:var(--fg)}
+.ps-scroll{background:var(--bg);padding:6rem 4rem}
+.ps-item{padding:4rem 0;border-bottom:1px solid rgba(0,212,255,.07)}
+.ps-item:last-child{border-bottom:none}
+.ps-item-num{font-family:var(--fd);font-size:.65rem;font-weight:700;color:var(--cyan);letter-spacing:.3em;margin-bottom:1rem}
+.ps-item-h{font-family:var(--fd);font-size:1.8rem;font-weight:800;color:var(--fg);line-height:1.1;margin-bottom:1rem}
+.ps-item-body{font-size:.9rem;color:rgba(226,238,255,.5);line-height:1.8;max-width:400px;margin-bottom:1.5rem}
+.ps-tag{display:inline-block;font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:var(--cyan);background:rgba(0,212,255,.08);border:1px solid rgba(0,212,255,.15);padding:.35rem 1rem;margin-right:.4rem;margin-bottom:.4rem}
+
+/* STATS BAR */
+.stats-bar{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid rgba(0,212,255,.08);border-bottom:1px solid rgba(0,212,255,.08)}
+.sb-item{padding:3rem;border-right:1px solid rgba(0,212,255,.07);position:relative;overflow:hidden}
+.sb-item:last-child{border-right:none}
+.sb-item::before{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--cyan),var(--blue));transform:scaleX(0);transform-origin:left;transition:transform .5s ease}
+.sb-item:hover::before{transform:scaleX(1)}
+.sb-n{font-family:var(--fd);font-size:3.2rem;font-weight:800;line-height:1;background:linear-gradient(135deg,var(--cyan),var(--blue));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:.4rem}
+.sb-l{font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+
+/* PROCESS */
+.process-section{padding:7rem 3rem;background:var(--surface)}
+.process-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:0;margin-top:4rem;position:relative}
+.process-grid::before{content:'';position:absolute;top:2.5rem;left:10%;right:10%;height:1px;background:linear-gradient(to right,transparent,var(--cyan),transparent);z-index:0}
+.p-step{padding:1.5rem;text-align:center;position:relative;z-index:1}
+.p-circle{width:5rem;height:5rem;margin:0 auto 1.5rem;background:var(--bg);border:1px solid rgba(0,212,255,.25);display:flex;align-items:center;justify-content:center;font-family:var(--fd);font-size:.85rem;font-weight:800;color:var(--cyan);clip-path:polygon(15px 0%,100% 0%,100% calc(100% - 15px),calc(100% - 15px) 100%,0% 100%,0% 15px);transition:background .3s}
+.p-step:hover .p-circle{background:rgba(0,212,255,.1)}
+.p-step-title{font-family:var(--fd);font-size:.92rem;font-weight:700;color:var(--fg);margin-bottom:.5rem}
+.p-step-body{font-size:.76rem;color:var(--muted);line-height:1.55}
+
+/* TESTIMONIALS */
+.t-section{padding:7rem 3rem;position:relative;z-index:1}
+.t-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5px;background:rgba(0,212,255,.05);margin-top:4rem}
+.tc{background:var(--bg);padding:3rem;transition:background .3s}
+.tc:hover{background:var(--surface)}
+.tc-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem}
+.tc-stars{font-size:.75rem;letter-spacing:.08em;color:var(--cyan)}
+.tc-badge{font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);background:var(--surface);padding:.25rem .7rem;border:1px solid rgba(0,212,255,.1)}
+.tc-text{font-family:var(--fd);font-style:italic;font-size:1rem;color:rgba(226,238,255,.75);line-height:1.7;margin-bottom:1.5rem}
+.tc-attr{font-size:.72rem;color:var(--muted)}
+.tc-attr strong{color:var(--cyan);font-weight:500}
+
+/* CTA */
+.cta-section{position:relative;padding:8rem 3rem;overflow:hidden;text-align:center}
+.cta-bg{position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(0,102,255,.15) 0%,rgba(2,4,8,0) 70%)}
+.cta-grid-lines{position:absolute;inset:0;background-image:linear-gradient(rgba(0,212,255,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(0,212,255,.05) 1px,transparent 1px);background-size:40px 40px}
+.cta-inner{position:relative;z-index:2;max-width:700px;margin:0 auto}
+.cta-h{font-family:var(--fd);font-size:clamp(2.5rem,5.5vw,5rem);font-weight:800;line-height:.95;letter-spacing:-.02em;color:var(--fg);margin-bottom:1.5rem}
+.cta-h .stroke{-webkit-text-stroke:1px var(--cyan);color:transparent}
+.cta-sub{font-size:.95rem;color:rgba(226,238,255,.45);margin-bottom:3rem}
+.cta-form{display:flex;gap:.8rem;max-width:480px;margin:0 auto}
+.cta-input{flex:1;background:rgba(0,212,255,.05);border:1px solid rgba(0,212,255,.2);color:var(--fg);font-family:var(--fb);font-size:.82rem;padding:.95rem 1.4rem;outline:none;backdrop-filter:blur(8px)}
+.cta-input::placeholder{color:var(--muted)}
+.cta-input:focus{border-color:var(--cyan)}
+
+/* FOOTER */
+footer{background:var(--surface);padding:4rem 3rem;display:grid;grid-template-columns:1.8fr 1fr 1fr 1fr;gap:3rem;border-top:1px solid rgba(0,212,255,.08)}
+.fb-brand p{font-size:.78rem;color:var(--muted);line-height:1.7;margin-top:.8rem;max-width:260px}
+.fc h4{font-family:var(--fd);font-size:.58rem;letter-spacing:.3em;text-transform:uppercase;color:var(--cyan);margin-bottom:1.2rem}
+.fc ul{list-style:none;display:flex;flex-direction:column;gap:.55rem}
+.fc ul a{font-size:.78rem;color:var(--muted);text-decoration:none;transition:color .2s}
+.fc ul a:hover{color:var(--fg)}
+.fbar{background:var(--bg);padding:1.4rem 3rem;border-top:1px solid rgba(0,212,255,.05);display:flex;justify-content:space-between;font-size:.65rem;color:var(--muted);letter-spacing:.08em}
+
+@media(max-width:900px){
+  nav{padding:1rem 1.5rem}.nav-links{display:none}
+  .hero{padding:7rem 1.5rem 4rem}.hero-stats{display:none}
+  .hero-h1{font-size:clamp(3rem,16vw,6rem)}
+  .bento-section{padding:4rem 1.5rem}
+  .bento{grid-template-columns:1fr 1fr;grid-auto-rows:180px}
+  .bc-1,.bc-2,.bc-3,.bc-4,.bc-5,.bc-6,.bc-7{grid-column:span 2;grid-row:span 1}
+  .ps-wrap{grid-template-columns:1fr}.ps-sticky{display:none}
+  .ps-scroll{padding:3rem 1.5rem}
+  .stats-bar{grid-template-columns:1fr 1fr}
+  .process-section{padding:4rem 1.5rem}.process-grid{grid-template-columns:1fr 1fr;row-gap:2rem}.process-grid::before{display:none}
+  .t-section{padding:4rem 1.5rem}.t-grid{grid-template-columns:1fr}
+  .cta-section{padding:5rem 1.5rem}.cta-form{flex-direction:column}
+  footer{grid-template-columns:1fr;gap:2rem;padding:3rem 1.5rem}
+  .fbar{padding:1.2rem 1.5rem;flex-direction:column;gap:.4rem}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="logo" href="#"><div class="logo-mark"></div>The Firm</a>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#process">Process</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a class="nav-cta" href="#contact">System Design</a>
+</nav>
+
+<section class="hero" id="home">
+  <div class="hero-glow"></div>
+  <div class="hero-glow2"></div>
+  <p class="hero-label" id="hero-label">Energy Independence · Global Operations</p>
+  <h1 class="hero-h1" id="hero-h1">
+    Future-Proof<br/>
+    <span class="stroke">Technology</span><br/>
+    Solutions.
+  </h1>
+  <p class="hero-sub" id="hero-sub">Power The Future. Built for enterprises who demand more than adequate — they demand exceptional.</p>
+  <div class="hero-actions" id="hero-actions">
+    <a class="btn-primary" href="#contact">System Design</a>
+    <a class="btn-outline" href="#services">ROI Analysis</a>
+  </div>
+  <div class="hero-stats" id="hero-stats">
+    <div class="hstat"><div class="hstat-n">500+</div><div class="hstat-l">Projects Deployed</div></div>
+    <div class="hstat"><div class="hstat-n">99.9%</div><div class="hstat-l">Uptime Guarantee</div></div>
+    <div class="hstat"><div class="hstat-n">12yr</div><div class="hstat-l">Industry Expertise</div></div>
+  </div>
+  <div class="hero-scroll"><span>Scroll</span><div class="scroll-bar"></div></div>
+</section>
+
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-track">
+    <span>The Firm</span><span>///</span><span>Energy Independence</span><span>///</span><span>Global Operations</span><span>///</span><span>Advanced Technology</span><span>///</span><span>High Performance</span><span>///</span><span>Scalable Systems</span><span>///</span><span>The Firm</span><span>///</span><span>Energy Independence</span><span>///</span><span>Global Operations</span><span>///</span><span>Advanced Technology</span><span>///</span><span>High Performance</span><span>///</span><span>Scalable Systems</span><span>///</span>
+  </div>
+</div>
+
+<section class="bento-section" id="services">
+  <div class="section-header">
+    <div class="eyebrow">Core Services</div>
+    <h2 class="sec-h">What We <em>Build</em><br/>For You</h2>
+  </div>
+  <div class="bento">
+    <div class="bc bc-1">
+      <div class="bc-bg-num">01</div>
+      <div class="bc-corner">→</div>
+      <div class="bc-content">
+        <div class="bc-num">01 / PRIMARY</div>
+        <h3 class="bc-title">Energy Independence</h3>
+        <p class="bc-body">Tier-1 solar infrastructure and sovereign energy independence for the region. Engineered for reliability, scalability, and peak performance under any load.</p>
+      </div>
+    </div>
+    <div class="bc bc-2">
+      <div class="bc-bg-num">02</div>
+      <div class="bc-corner">→</div>
+      <div class="bc-content">
+        <div class="bc-num">02</div>
+        <h3 class="bc-title">Cloud Infrastructure</h3>
+        <p class="bc-body">Enterprise-grade cloud architecture with 99.9% guaranteed uptime.</p>
+      </div>
+    </div>
+    <div class="bc bc-3">
+      <div class="bc-bg-num">03</div>
+      <div class="bc-corner">→</div>
+      <div class="bc-content">
+        <div class="bc-num">03</div>
+        <h3 class="bc-title">Cybersecurity</h3>
+        <p class="bc-body">End-to-end protection with real-time threat monitoring in Global Operations.</p>
+      </div>
+    </div>
+    <div class="bc bc-4">
+      <div class="bc-bg-num">04</div>
+      <div class="bc-corner">→</div>
+      <div class="bc-content">
+        <div class="bc-num">04</div>
+        <h3 class="bc-title">AI & Automation</h3>
+        <p class="bc-body">Intelligent workflow automation that eliminates bottlenecks at scale.</p>
+      </div>
+    </div>
+    <div class="bc bc-5">
+      <div class="bc-bg-num">05</div>
+      <div class="bc-corner">→</div>
+      <div class="bc-content">
+        <div class="bc-num">05</div>
+        <h3 class="bc-title">24/7 Support</h3>
+        <p class="bc-body">Round-the-clock monitoring and dedicated technical support.</p>
+      </div>
+    </div>
+    <div class="bc bc-6">
+      <div class="bc-bg-num">06</div>
+      <div class="bc-corner">→</div>
+      <div class="bc-content">
+        <div class="bc-num">06</div>
+        <h3 class="bc-title">Data & Analytics</h3>
+        <p class="bc-body">Turn your raw data into business intelligence with our custom dashboards and reporting platforms built for Global Operations enterprises.</p>
+      </div>
+    </div>
+    <div class="bc bc-7">
+      <div class="bc-bg-num">07</div>
+      <div class="bc-corner">→</div>
+      <div class="bc-content">
+        <div class="bc-num">07</div>
+        <h3 class="bc-title">Consulting</h3>
+        <p class="bc-body">Strategic tech roadmapping for ambitious businesses.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="stats-bar">
+  <div class="sb-item"><div class="sb-n">500+</div><div class="sb-l">Projects Completed</div></div>
+  <div class="sb-item"><div class="sb-n">99.9%</div><div class="sb-l">System Uptime</div></div>
+  <div class="sb-item"><div class="sb-n">12yr</div><div class="sb-l">Industry Expertise</div></div>
+  <div class="sb-item"><div class="sb-n">48hr</div><div class="sb-l">Average Deploy Time</div></div>
+</div>
+
+<div class="parallax-section" id="about">
+  <div class="ps-wrap">
+    <div class="ps-sticky" id="ps-img">
+      <div class="ps-sticky-inner">
+        <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=2000&q=80" alt="About SunPower Elite" style="width:100%;height:100%;object-fit:cover;"/>
+        <div style="width:100%;height:100%;background:linear-gradient(135deg,rgba(0,102,255,.15),rgba(0,212,255,.08))"></div>
+      </div>
+      <div class="ps-sticky-overlay"></div>
+      <div class="ps-sticky-badge">
+        <div class="psb-label">Est. Since</div>
+        <div class="psb-val">2012</div>
+      </div>
+    </div>
+    <div class="ps-scroll">
+      <div class="ps-item">
+        <div class="ps-item-num">01 / WHY US</div>
+        <h3 class="ps-item-h">Built Different,<br/>Built to Last</h3>
+        <p class="ps-item-body">Power The Future. We don't just implement technology — we build systems that give your business an unfair advantage in Global Operations and beyond.</p>
+        <span class="ps-tag">Architecture</span><span class="ps-tag">Strategy</span>
+      </div>
+      <div class="ps-item">
+        <div class="ps-item-num">02 / APPROACH</div>
+        <h3 class="ps-item-h">Precision Over<br/>Speed. Always.</h3>
+        <p class="ps-item-body">Every solution we deploy is rigorously tested across failure scenarios before it ever touches your production environment. No exceptions.</p>
+        <span class="ps-tag">Testing</span><span class="ps-tag">QA</span><span class="ps-tag">DevOps</span>
+      </div>
+      <div class="ps-item">
+        <div class="ps-item-num">03 / RESULTS</div>
+        <h3 class="ps-item-h">Measurable ROI<br/>Every Time</h3>
+        <p class="ps-item-body">Our clients in Global Operations average 340% ROI within the first 18 months of deployment. We track every metric that matters to your bottom line.</p>
+        <span class="ps-tag">ROI</span><span class="ps-tag">Analytics</span>
+        <div style="margin-top:2rem"><a class="btn-primary" href="#contact">System Design</a></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section class="process-section" id="process">
+  <div class="section-header">
+    <div class="eyebrow">How It Works</div>
+    <h2 class="sec-h">Our <em>Deployment</em><br/>Protocol</h2>
+  </div>
+  <div class="process-grid">
+    <div class="p-step"><div class="p-circle">01</div><h3 class="p-step-title">Discovery</h3><p class="p-step-body">Deep-dive audit of your current stack and business requirements.</p></div>
+    <div class="p-step"><div class="p-circle">02</div><h3 class="p-step-title">Architecture</h3><p class="p-step-body">Custom solution design mapped precisely to your goals.</p></div>
+    <div class="p-step"><div class="p-circle">03</div><h3 class="p-step-title">Build</h3><p class="p-step-body">Agile development with weekly demos and feedback cycles.</p></div>
+    <div class="p-step"><div class="p-circle">04</div><h3 class="p-step-title">Deploy</h3><p class="p-step-body">Zero-downtime deployment with full rollback capability.</p></div>
+    <div class="p-step"><div class="p-circle">05</div><h3 class="p-step-title">Optimize</h3><p class="p-step-body">Continuous monitoring and performance tuning post-launch.</p></div>
+  </div>
+</section>
+
+<section class="t-section">
+  <div class="section-header">
+    <div class="eyebrow">Client Results</div>
+    <h2 class="sec-h">What Leaders in<br/><em>Global Operations</em> Say</h2>
+  </div>
+  <div class="t-grid">
+    <div class="tc">
+      <div class="tc-header"><div class="tc-stars">★★★★★</div><span class="tc-badge">Enterprise</span></div>
+      <p class="tc-text">"The Firm transformed our entire infrastructure in 60 days. Our systems have never been faster or more secure. The ROI was visible within weeks."</p>
+      <p class="tc-attr"><strong>James M.</strong> — CTO, Global Operations</p>
+    </div>
+    <div class="tc">
+      <div class="tc-header"><div class="tc-stars">★★★★★</div><span class="tc-badge">Solar</span></div>
+      <p class="tc-text">"The monitoring platform they built gives us real-time visibility across all 47 of our solar installations. Absolutely game-changing for our operations."</p>
+      <p class="tc-attr"><strong>Sandra O.</strong> — Operations Director</p>
+    </div>
+    <div class="tc">
+      <div class="tc-header"><div class="tc-stars">★★★★★</div><span class="tc-badge">Startup</span></div>
+      <p class="tc-text">"From MVP to scale-ready infrastructure in 8 weeks. The Firm understood our vision from day one and executed flawlessly."</p>
+      <p class="tc-attr"><strong>David K.</strong> — Founder, Global Operations</p>
+    </div>
+    <div class="tc">
+      <div class="tc-header"><div class="tc-stars">★★★★★</div><span class="tc-badge">IT Services</span></div>
+      <p class="tc-text">"Security posture went from 'concerning' to 'best in class' in a single engagement. Professional, thorough, and genuinely expert."</p>
+      <p class="tc-attr"><strong>Rachel N.</strong> — Head of IT, Global Operations</p>
+    </div>
+  </div>
+</section>
+
+<section class="cta-section" id="contact">
+  <div class="cta-bg"></div>
+  <div class="cta-grid-lines"></div>
+  <div class="cta-inner">
+    <div class="eyebrow" style="justify-content:center">Start Your Project</div>
+    <h2 class="cta-h">Ready to Build<br/>Something <span class="stroke">Extraordinary?</span></h2>
+    <p class="cta-sub">Tier-1 solar infrastructure and sovereign energy independence for the region. Let's architect something that puts you years ahead of the competition in Global Operations.</p>
+    <div class="cta-form">
+      <input class="cta-input" type="email" placeholder="Your email address"/>
+      <a class="btn-primary" href="mailto:">System Design</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="fb-brand">
+    <a class="logo" href="#"><div class="logo-mark"></div>The Firm</a>
+    <p>Power The Future. Serving Global Operations and beyond with cutting-edge technology solutions.</p>
+  </div>
+  <div class="fc"><h4>Services</h4><ul><li><a href="#">Energy Independence</a></li><li><a href="#">Cloud Infrastructure</a></li><li><a href="#">Cybersecurity</a></li><li><a href="#">AI & Automation</a></li></ul></div>
+  <div class="fc"><h4>Company</h4><ul><li><a href="#">About Us</a></li><li><a href="#">Case Studies</a></li><li><a href="#">Careers</a></li><li><a href="#">Blog</a></li></ul></div>
+  <div class="fc"><h4>Contact</h4><ul><li><a href="#">Global Operations HQ</a></li><li><a href="#">Get a Quote</a></li><li><a href="#">Support Portal</a></li></ul></div>
+</footer>
+<div class="fbar"><span>© 2025 The Firm · Global Operations</span><span>Technology Partner · All Rights Reserved</span></div>
+
+<script>
+window.addEventListener('load', function() {
+  if (typeof gsap === 'undefined') return;
+  gsap.registerPlugin(ScrollTrigger);
+
+  // Hero entrance
+  gsap.set(['#hero-label','#hero-h1','#hero-sub','#hero-actions','#hero-stats'], {y: 60, opacity: 0});
+  gsap.to(['#hero-label','#hero-h1','#hero-sub','#hero-actions','#hero-stats'], {
+    y: 0, opacity: 1, duration: 1.2, stagger: .15, ease: 'power3.out', delay: .2
+  });
+
+  // Bento cards
+  gsap.from('.bc', {
+    opacity: 0, y: 40, stagger: .06, duration: .8, ease: 'power2.out',
+    scrollTrigger: { trigger: '.bento', start: 'top 80%' }
+  });
+
+  // Stats counter animation
+  gsap.from('.sb-item', {
+    opacity: 0, y: 30, stagger: .1, duration: .7, ease: 'power2.out',
+    scrollTrigger: { trigger: '.stats-bar', start: 'top 85%' }
+  });
+
+  // Process steps
+  gsap.from('.p-step', {
+    opacity: 0, y: 35, stagger: .1, duration: .8, ease: 'power2.out',
+    scrollTrigger: { trigger: '.process-grid', start: 'top 80%' }
+  });
+
+  // Testimonials
+  gsap.from('.tc', {
+    opacity: 0, scale: .96, stagger: .08, duration: .8, ease: 'power2.out',
+    scrollTrigger: { trigger: '.t-grid', start: 'top 80%' }
+  });
+
+  // Parallax on sticky image
+  gsap.to('#ps-img', {
+    yPercent: -15,
+    ease: 'none',
+    scrollTrigger: {
+      trigger: '.parallax-section',
+      start: 'top top',
+      end: 'bottom bottom',
+      scrub: 1
+    }
+  });
+
+  // PS items reveal
+  gsap.from('.ps-item', {
+    opacity: 0, x: 40, stagger: .15, duration: .9, ease: 'power2.out',
+    scrollTrigger: { trigger: '.ps-scroll', start: 'top 75%' }
+  });
+});
+</script>
+<script src="https://kinsley-nonconducting-faustino.ngrok-free.dev/tracking.js" data-lead-id="{{LEAD_ID}}"></script>
+</body>
+</html>
