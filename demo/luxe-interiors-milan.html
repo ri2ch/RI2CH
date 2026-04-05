@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>The Firm — Bespoke Interiors</title>
+<meta name="description" content="Eleganza. Pure."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100..900&display=swap" rel="stylesheet"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js" defer></script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --cream:#f5f0e8;--parchment:#ede5d4;--charcoal:#1a1714;--warm:#8b6f4e;
+  --stone:#6b6058;--white:#fff;--fg:#2c2420;
+  --fd:'Montserrat',sans-serif;--fb:'Montserrat',sans-serif;
+}
+html{scroll-behavior:smooth}
+body{background:var(--cream);color:var(--fg);font-family:var(--fb);font-weight:300;overflow-x:hidden;line-height:1.65}
+
+/* NAV — transparent over hero, solid after */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:1.8rem 4rem;transition:all .4s}
+nav.scrolled{background:rgba(245,240,232,.96);backdrop-filter:blur(14px);padding:1.2rem 4rem;box-shadow:0 1px 0 rgba(139,111,78,.1)}
+.logo{font-family:var(--fd);font-size:1.05rem;font-weight:400;letter-spacing:.12em;text-transform:uppercase;color:var(--white);text-decoration:none;transition:color .4s}
+nav.scrolled .logo{color:var(--charcoal)}
+.nav-links{display:flex;gap:2.5rem;list-style:none}
+.nav-links a{font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.6);text-decoration:none;transition:color .25s}
+nav.scrolled .nav-links a{color:var(--stone)}
+.nav-links a:hover,.nav-links a:hover{color:var(--warm) !important}
+.nav-book{font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--charcoal);background:var(--parchment);padding:.75rem 1.8rem;text-decoration:none;border:1px solid transparent;transition:all .3s}
+nav.scrolled .nav-book{background:var(--warm);color:var(--white)}
+.nav-book:hover{background:var(--warm);color:var(--white) !important}
+
+/* HERO — full bleed with big title overlaid on image */
+.hero{position:relative;height:100vh;min-height:700px;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end}
+.hero-img{position:absolute;inset:-15%;will-change:transform}
+.hero-img img{width:100%;height:100%;object-fit:cover;display:block}
+<img src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=1600&q=80" alt="Luxe Interiors Hero" style="width:100%;height:100%;object-fit:cover;object-position:center top;"/>
+.hero-img-placeholder{width:100%;height:100%;background:linear-gradient(160deg,#3a2e26 0%,#1a1714 100%)}
+.hero-img::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(26,23,20,.88) 0%,rgba(26,23,20,.2) 50%,transparent 100%)}
+.hero-content{position:relative;z-index:2;padding:5rem 4rem}
+.hero-pretitle{font-size:.62rem;letter-spacing:.45em;text-transform:uppercase;color:rgba(245,240,232,.55);margin-bottom:1.2rem;display:flex;align-items:center;gap:1rem}
+.hero-pretitle::before{content:'';display:block;width:30px;height:1px;background:var(--warm)}
+.hero-h1{font-family:var(--fd);font-size:clamp(3.5rem,8.5vw,9rem);font-weight:400;line-height:.9;color:var(--white);letter-spacing:-.02em}
+.hero-h1 em{font-style:italic;color:rgba(245,240,232,.7)}
+.hero-bottom-row{display:flex;align-items:flex-end;justify-content:space-between;margin-top:2.5rem;gap:2rem}
+.hero-tagline{font-size:1.05rem;color:rgba(245,240,232,.55);max-width:320px;line-height:1.65;font-weight:300}
+.hero-btns{display:flex;gap:1rem;flex-shrink:0}
+.btn-light{display:inline-block;font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:var(--charcoal);background:var(--cream);padding:.95rem 2.2rem;text-decoration:none;transition:all .3s}
+.btn-light:hover{background:var(--parchment)}
+.btn-ghost{display:inline-block;font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(245,240,232,.8);border:1px solid rgba(245,240,232,.25);padding:.92rem 2.2rem;text-decoration:none;transition:all .3s}
+.btn-ghost:hover{border-color:var(--cream);color:var(--white)}
+.hero-side-text{position:absolute;right:2rem;top:50%;transform:translateY(-50%) rotate(90deg);font-size:.58rem;letter-spacing:.35em;text-transform:uppercase;color:rgba(245,240,232,.3);z-index:2;transform-origin:center}
+
+/* MARQUEE DIVIDER */
+.marquee{overflow:hidden;background:var(--warm);padding:.7rem 0;white-space:nowrap}
+.marquee-track{display:inline-flex;animation:mq 35s linear infinite}
+.marquee-track span{font-family:var(--fd);font-style:italic;font-size:.85rem;color:rgba(245,240,232,.85);padding:0 3rem}
+.marquee-track .sep{font-style:normal;color:rgba(245,240,232,.4)}
+@keyframes mq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* INTRO SPLIT */
+.intro{display:grid;grid-template-columns:1fr 1fr;min-height:60vh;background:var(--white)}
+.intro-left{padding:6rem 5rem;display:flex;flex-direction:column;justify-content:center;border-right:1px solid rgba(139,111,78,.1)}
+.intro-tag{font-size:.58rem;letter-spacing:.4em;text-transform:uppercase;color:var(--warm);margin-bottom:1.5rem}
+.intro-h{font-family:var(--fd);font-size:clamp(1.8rem,3.5vw,3rem);font-weight:400;line-height:1.2;color:var(--charcoal)}
+.intro-h em{font-style:italic}
+.intro-right{padding:6rem 5rem;display:flex;flex-direction:column;justify-content:center}
+.intro-body{font-size:1rem;color:var(--stone);line-height:1.82;max-width:440px;margin-bottom:2.5rem}
+.intro-stats{display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin-bottom:3rem}
+.ist{border-left:2px solid var(--warm);padding-left:1.2rem}
+.ist-n{font-family:var(--fd);font-size:2.2rem;font-weight:400;color:var(--charcoal);line-height:1}
+.ist-l{font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;color:var(--stone)}
+
+/* PORTFOLIO SECTION — editorial masonry feel */
+.portfolio-section{padding:7rem 4rem;background:var(--cream)}
+.port-header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:4rem}
+.sec-tag{font-size:.58rem;letter-spacing:.4em;text-transform:uppercase;color:var(--warm);margin-bottom:.8rem}
+.sec-h{font-family:var(--fd);font-size:clamp(2rem,4vw,3.5rem);font-weight:400;color:var(--charcoal);line-height:1.1}
+.sec-h em{font-style:italic}
+.port-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr;grid-template-rows:380px 280px;gap:1.2rem}
+.pitem{position:relative;overflow:hidden;background:var(--parchment)}
+.pitem.wide{grid-column:span 2}
+.pitem.tall{grid-row:span 2}
+.pitem img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .9s ease}
+.pitem:hover img{transform:scale(1.05)}
+<img src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=1600&q=80" alt="Procedure Result" style="width:100%;height:100%;object-fit:cover;"/>
+.pitem-label{position:absolute;bottom:0;left:0;right:0;padding:1.5rem 1.8rem;background:linear-gradient(to top,rgba(26,23,20,.7),transparent);transform:translateY(100%);transition:transform .4s ease}
+.pitem:hover .pitem-label{transform:translateY(0)}
+.pitem-cat{font-size:.58rem;letter-spacing:.3em;text-transform:uppercase;color:rgba(245,240,232,.6);margin-bottom:.3rem}
+.pitem-title{font-family:var(--fd);font-style:italic;font-size:1.1rem;color:var(--white)}
+
+/* PARALLAX MANIFESTO SECTION */
+.manifesto{position:relative;min-height:70vh;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.mani-bg{position:absolute;inset:-25%;will-change:transform}
+.mani-bg img{width:100%;height:100%;object-fit:cover;display:block}
+
+.mani-bg-placeholder{width:100%;height:100%;background:linear-gradient(135deg,#2c2420 0%,#8b6f4e 100%)}
+.mani-bg::after{content:'';position:absolute;inset:0;background:rgba(26,23,20,.72)}
+.mani-content{position:relative;z-index:2;text-align:center;max-width:900px;padding:4rem 2rem}
+.mani-quote{font-family:var(--fd);font-style:italic;font-size:clamp(1.8rem,4.5vw,4rem);font-weight:400;color:var(--white);line-height:1.25;margin-bottom:2rem}
+.mani-quote em{color:var(--warm)}
+.mani-attr{font-size:.68rem;letter-spacing:.3em;text-transform:uppercase;color:rgba(245,240,232,.4)}
+
+/* SERVICES GRID */
+.services-section{padding:7rem 4rem;background:var(--white)}
+.svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:1px solid rgba(139,111,78,.1);margin-top:4rem}
+.svc-card{padding:3rem;border-right:1px solid rgba(139,111,78,.1);border-bottom:1px solid rgba(139,111,78,.1);position:relative;overflow:hidden;transition:background .35s}
+.svc-card:hover{background:var(--cream)}
+.svc-card:nth-child(3n){border-right:none}
+.svc-card:nth-last-child(-n+3){border-bottom:none}
+.svc-num{font-family:var(--fd);font-style:italic;font-size:.8rem;color:var(--warm);margin-bottom:1.5rem}
+.svc-name{font-family:var(--fd);font-size:1.2rem;font-weight:400;color:var(--charcoal);margin-bottom:.8rem}
+.svc-body{font-size:.83rem;color:var(--stone);line-height:1.65}
+.svc-arrow{position:absolute;bottom:2rem;right:2rem;width:32px;height:32px;border:1px solid rgba(139,111,78,.25);display:flex;align-items:center;justify-content:center;font-size:.8rem;color:var(--warm);opacity:0;transition:all .3s}
+.svc-card:hover .svc-arrow{opacity:1}
+
+/* PROCESS TIMELINE */
+.process-section{padding:7rem 4rem;background:var(--cream)}
+.process-line{display:grid;grid-template-columns:repeat(4,1fr);gap:3rem;margin-top:4rem;position:relative}
+.process-line::before{content:'';position:absolute;top:1.6rem;left:8%;right:8%;height:1px;background:var(--warm);opacity:.2}
+.pl-step{text-align:center;position:relative}
+.pl-num{width:3.2rem;height:3.2rem;border-radius:50%;border:1px solid var(--warm);background:var(--cream);display:flex;align-items:center;justify-content:center;margin:0 auto 1.5rem;font-family:var(--fd);font-style:italic;font-size:.85rem;color:var(--warm);position:relative;z-index:1}
+.pl-title{font-family:var(--fd);font-size:1rem;font-weight:400;color:var(--charcoal);margin-bottom:.6rem}
+.pl-body{font-size:.8rem;color:var(--stone);line-height:1.6}
+
+/* TESTIMONIALS */
+.t-section{padding:7rem 4rem;background:var(--white)}
+.t-layout{display:grid;grid-template-columns:1fr 2fr;gap:5rem;align-items:start;margin-top:4rem}
+.t-intro p{font-size:.95rem;color:var(--stone);line-height:1.82;margin:1rem 0 2.5rem}
+.t-cards{display:flex;flex-direction:column;gap:2px}
+.tc{background:var(--cream);padding:2.5rem;border-left:3px solid transparent;transition:border-color .3s,background .3s}
+.tc:hover{border-left-color:var(--warm);background:var(--parchment)}
+.tc-stars{color:var(--warm);font-size:.7rem;margin-bottom:1rem}
+.tc-text{font-family:var(--fd);font-style:italic;font-size:.98rem;color:var(--charcoal);line-height:1.65;margin-bottom:1.1rem}
+.tc-attr{font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;color:var(--stone)}
+
+/* BOOKING SECTION */
+.booking-section{padding:7rem 4rem;background:var(--charcoal)}
+.booking-wrap{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center}
+.bk-left .sec-tag{color:var(--warm)}
+.bk-left .sec-h{color:var(--white)}
+.bk-left p{font-size:.95rem;color:rgba(245,240,232,.5);line-height:1.78;margin:1.2rem 0 2.5rem;max-width:420px}
+.bk-right{background:rgba(245,240,232,.04);border:1px solid rgba(245,240,232,.08);padding:3rem}
+.bk-title{font-family:var(--fd);font-size:1.3rem;font-weight:400;color:var(--white);margin-bottom:2rem}
+.bk-options{display:flex;flex-direction:column;gap:.8rem;margin-bottom:2rem}
+.bk-opt{display:flex;align-items:center;gap:1rem;padding:1.1rem 1.4rem;border:1px solid rgba(245,240,232,.08);cursor:pointer;transition:border-color .25s;background:transparent}
+.bk-opt:hover{border-color:var(--warm)}
+.bk-opt-icon{font-size:1.1rem;flex-shrink:0}
+.bk-opt-label{font-size:.82rem;font-weight:500;color:var(--cream)}
+.bk-opt-sub{font-size:.7rem;color:rgba(245,240,232,.38)}
+.btn-warm{display:inline-block;font-size:.75rem;font-weight:500;letter-spacing:.15em;text-transform:uppercase;color:var(--charcoal);background:var(--warm);padding:1rem 2.5rem;text-decoration:none;transition:opacity .25s;width:100%;text-align:center}
+.btn-warm:hover{opacity:.88}
+
+/* FOOTER */
+footer{background:#120f0d;padding:4rem;display:grid;grid-template-columns:1.8fr 1fr 1fr 1fr;gap:3rem;border-top:1px solid rgba(245,240,232,.05)}
+.fb p{font-size:.78rem;color:rgba(245,240,232,.3);line-height:1.72;margin-top:.8rem;max-width:250px}
+.fc h4{font-family:var(--fd);font-style:italic;font-size:.8rem;color:var(--warm);margin-bottom:1.2rem}
+.fc ul{list-style:none;display:flex;flex-direction:column;gap:.55rem}
+.fc ul a{font-size:.78rem;color:rgba(245,240,232,.35);text-decoration:none;transition:color .2s}
+.fc ul a:hover{color:var(--cream)}
+.fbar{background:#0d0b09;padding:1.4rem 4rem;border-top:1px solid rgba(245,240,232,.04);display:flex;justify-content:space-between;font-size:.65rem;color:rgba(245,240,232,.2)}
+
+@media(max-width:900px){
+  nav{padding:1.2rem 1.5rem}.nav-links{display:none}
+  nav.scrolled{padding:1rem 1.5rem}
+  .hero-content{padding:3rem 1.5rem}.hero-h1{font-size:clamp(2.8rem,15vw,6rem)}
+  .hero-bottom-row{flex-direction:column;align-items:flex-start}
+  .intro{grid-template-columns:1fr}.intro-left,.intro-right{padding:3.5rem 1.5rem}
+  .portfolio-section{padding:4rem 1.5rem}.port-grid{grid-template-columns:1fr;grid-template-rows:auto}.pitem.wide,.pitem.tall{grid-column:span 1;grid-row:span 1}
+  .services-section{padding:4rem 1.5rem}.svc-grid{grid-template-columns:1fr}
+  .svc-card:nth-child(3n){border-right:none}.svc-card{border-right:none}
+  .process-section{padding:4rem 1.5rem}.process-line{grid-template-columns:1fr 1fr}.process-line::before{display:none}
+  .t-section{padding:4rem 1.5rem}.t-layout{grid-template-columns:1fr;gap:2rem}
+  .booking-section{padding:4rem 1.5rem}.booking-wrap{grid-template-columns:1fr}
+  footer{grid-template-columns:1fr;gap:2rem;padding:3rem 1.5rem}
+  .fbar{padding:1.2rem 1.5rem;flex-direction:column;gap:.4rem}
+}
+</style>
+</head>
+<body>
+
+<nav id="main-nav">
+  <a class="logo" href="#">The Firm</a>
+  <ul class="nav-links">
+    <li><a href="#portfolio">Portfolio</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a class="nav-book" href="#contact">Request Moodboard</a>
+</nav>
+
+<section class="hero" id="home">
+  <div class="hero-img" id="hero-img">
+    <div class="hero-img-placeholder"></div>
+    <img src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=1600&q=80" alt="Luxe Interiors Hero" style="width:100%;height:100%;object-fit:cover;object-position:center top;"/>
+  </div>
+  <div class="hero-side-text">Bespoke Interiors · Milan</div>
+  <div class="hero-content">
+    <p class="hero-pretitle" id="hero-pre">Bespoke Interiors · Milan</p>
+    <h1 class="hero-h1" id="hero-h1">
+      We Design<br/>
+      <em>Spaces That</em><br/>
+      Remember You.
+    </h1>
+    <div class="hero-bottom-row" id="hero-bottom">
+      <p class="hero-tagline">Eleganza. Pure.</p>
+      <div class="hero-btns">
+        <a class="btn-light" href="#portfolio">View Portfolio</a>
+        <a class="btn-ghost" href="#contact">Request Moodboard</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="marquee" aria-hidden="true">
+  <div class="marquee-track">
+    <span>Interior Design</span><span class="sep">—</span><span>Bespoke Interiors</span><span class="sep">—</span><span>Milan</span><span class="sep">—</span><span>Home Renovation</span><span class="sep">—</span><span>Bespoke Spaces</span><span class="sep">—</span><span>The Firm</span><span class="sep">—</span>
+    <span>Interior Design</span><span class="sep">—</span><span>Bespoke Interiors</span><span class="sep">—</span><span>Milan</span><span class="sep">—</span><span>Home Renovation</span><span class="sep">—</span><span>Bespoke Spaces</span><span class="sep">—</span><span>The Firm</span><span class="sep">—</span>
+  </div>
+</div>
+
+<div class="intro" id="about">
+  <div class="intro-left">
+    <div class="intro-tag">Our Philosophy</div>
+    <h2 class="intro-h">Great Interiors Tell<br/>a <em>Story.</em><br/>Yours Is Waiting.</h2>
+  </div>
+  <div class="intro-right">
+    <p class="intro-body">Eleganza. Pure. Every space we touch in Milan is treated as a unique canvas — shaped by the people who live there, the light that moves through it, and the feeling it should create.</p>
+    <div class="intro-stats">
+      <div class="ist"><div class="ist-n">280+</div><div class="ist-l">Projects Complete</div></div>
+      <div class="ist"><div class="ist-n">14yr</div><div class="ist-l">In Business</div></div>
+      <div class="ist"><div class="ist-n">100%</div><div class="ist-l">Client Retention</div></div>
+      <div class="ist"><div class="ist-n">4.9★</div><div class="ist-l">Average Rating</div></div>
+    </div>
+    <a class="btn-light" style="background:var(--warm);color:var(--white);display:inline-block;font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;padding:.95rem 2.2rem;text-decoration:none" href="#contact">Request Moodboard</a>
+  </div>
+</div>
+
+<section class="portfolio-section" id="portfolio">
+  <div class="port-header">
+    <div>
+      <div class="sec-tag">Selected Work</div>
+      <h2 class="sec-h">Projects That<br/><em>Speak</em> for Themselves</h2>
+    </div>
+    <a class="btn-light" style="background:var(--parchment);color:var(--charcoal);display:inline-block;font-size:.7rem;letter-spacing:.15em;text-transform:uppercase;padding:.85rem 1.8rem;text-decoration:none;flex-shrink:0" href="#contact">View All →</a>
+  </div>
+  <div class="port-grid" id="port-grid">
+    <div class="pitem tall"><div class="pitem-label"><div class="pitem-cat">Living Room</div><div class="pitem-title">Millbrook Residence</div></div><img src="https://images.unsplash.com/photo-1620626011761-9963d7521476?w=800&q=80" alt="Procedure Result" style="width:100%;height:100%;object-fit:cover;"/></div>
+    <div class="pitem"><div class="pitem-label"><div class="pitem-cat">Kitchen</div><div class="pitem-title">Hargrove Kitchen</div></div></div>
+    <div class="pitem"><div class="pitem-label"><div class="pitem-cat">Bedroom</div><div class="pitem-title">Oak Hill Suite</div></div></div>
+    <div class="pitem wide"><div class="pitem-label"><div class="pitem-cat">Full Renovation</div><div class="pitem-title">The Westfield Complete</div></div></div>
+  </div>
+</section>
+
+<div class="manifesto">
+  <div class="mani-bg" id="mani-bg">
+    <div class="mani-bg-placeholder"></div>
+    
+  </div>
+  <div class="mani-content">
+    <p class="mani-quote">"A beautiful space doesn't just <em>look</em> extraordinary — it makes every moment lived inside it feel extraordinary too."</p>
+    <p class="mani-attr">— The Firm Design Philosophy</p>
+  </div>
+</div>
+
+<section class="services-section" id="services">
+  <div style="margin-bottom:0">
+    <div class="sec-tag">What We Offer</div>
+    <h2 class="sec-h" style="margin-bottom:0">Full-Service <em>Design</em><br/>From Concept to Completion</h2>
+  </div>
+  <div class="svc-grid">
+    <div class="svc-card"><div class="svc-num">I.</div><h3 class="svc-name">Bespoke Interiors</h3><p class="svc-body">Transformative interior architecture and curation for Milan. Every detail considered. Every decision deliberate. Built for the way you actually live.</p><div class="svc-arrow">→</div></div>
+    <div class="svc-card"><div class="svc-num">II.</div><h3 class="svc-name">Space Planning</h3><p class="svc-body">Functional floor plan design that maximizes every square foot while maintaining elegance and flow.</p><div class="svc-arrow">→</div></div>
+    <div class="svc-card"><div class="svc-num">III.</div><h3 class="svc-name">Full Renovation</h3><p class="svc-body">Turnkey renovation management with vetted contractors, on-time delivery, and zero stress for you.</p><div class="svc-arrow">→</div></div>
+    <div class="svc-card"><div class="svc-num">IV.</div><h3 class="svc-name">Furniture Curation</h3><p class="svc-body">Sourcing bespoke and artisan pieces that perfectly express your aesthetic from global suppliers.</p><div class="svc-arrow">→</div></div>
+    <div class="svc-card"><div class="svc-num">V.</div><h3 class="svc-name">Lighting Design</h3><p class="svc-body">Layered lighting schemes that transform the mood of every room at any hour of the day.</p><div class="svc-arrow">→</div></div>
+    <div class="svc-card"><div class="svc-num">VI.</div><h3 class="svc-name">Virtual Staging</h3><p class="svc-body">Photorealistic 3D renders so you see exactly how the finished space looks before work begins.</p><div class="svc-arrow">→</div></div>
+  </div>
+</section>
+
+<section class="process-section">
+  <div class="sec-tag">How It Works</div>
+  <h2 class="sec-h">From First Call to<br/><em>Final Reveal</em></h2>
+  <div class="process-line">
+    <div class="pl-step"><div class="pl-num">01</div><h3 class="pl-title">Consultation</h3><p class="pl-body">We meet, listen, and understand your vision, lifestyle, and budget.</p></div>
+    <div class="pl-step"><div class="pl-num">02</div><h3 class="pl-title">Concept Design</h3><p class="pl-body">Mood boards, palette selections, and 3D renders of your future space.</p></div>
+    <div class="pl-step"><div class="pl-num">03</div><h3 class="pl-title">Procurement</h3><p class="pl-body">All materials, furniture, and fixtures sourced and managed for you.</p></div>
+    <div class="pl-step"><div class="pl-num">04</div><h3 class="pl-title">The Reveal</h3><p class="pl-body">We hand over your finished space — every detail exactly as designed.</p></div>
+  </div>
+</section>
+
+<section class="t-section">
+  <div class="t-layout">
+    <div class="t-intro">
+      <div class="sec-tag">Client Love</div>
+      <h2 class="sec-h">Homes <em>Transformed.</em><br/>Clients Thrilled.</h2>
+      <p>In Milan, word travels. Our clients stay, refer their friends, and come back for every new space they own. Here is what they say about working with The Firm.</p>
+      <a class="btn-light" style="background:var(--warm);color:var(--white);display:inline-block;font-size:.7rem;letter-spacing:.15em;text-transform:uppercase;padding:.9rem 2rem;text-decoration:none" href="#contact">Request Moodboard</a>
+    </div>
+    <div class="t-cards">
+      <div class="tc"><div class="tc-stars">★★★★★</div><p class="tc-text">"Our living room has been photographed for three magazines since The Firm redesigned it. We are obsessed with every single detail."</p><p class="tc-attr">Sofia R. — Residential Client, Milan</p></div>
+      <div class="tc"><div class="tc-stars">★★★★★</div><p class="tc-text">"The renovation was on budget, on time, and genuinely painless. The result exceeded every expectation we had. Pure mastery."</p><p class="tc-attr">Marcus & Claire T. — Full Renovation</p></div>
+      <div class="tc"><div class="tc-stars">★★★★★</div><p class="tc-text">"The Firm heard exactly what we wanted, then delivered something even better. The attention to detail is extraordinary."</p><p class="tc-attr">Adaeze O. — Interior Design, Milan</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="booking-section" id="contact">
+  <div class="booking-wrap">
+    <div class="bk-left">
+      <div class="sec-tag">Begin Your Project</div>
+      <h2 class="sec-h">Your Dream Space<br/><em>Starts Today.</em></h2>
+      <p>Transformative interior architecture and curation for Milan. Whether it's one room or an entire home, we bring the same obsessive detail to every project in Milan.</p>
+      <a class="btn-warm" style="display:inline-block;max-width:250px;font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;text-align:center;padding:.95rem 2rem;text-decoration:none;color:var(--charcoal)" href="tel:">Request Moodboard</a>
+    </div>
+    <div class="bk-right">
+      <h3 class="bk-title">How Would You Like to Start?</h3>
+      <div class="bk-options">
+        <div class="bk-opt"><span class="bk-opt-icon">📞</span><div><div class="bk-opt-label">Call Our Studio</div><div class="bk-opt-sub">Speak directly with a designer · Milan</div></div></div>
+        <div class="bk-opt"><span class="bk-opt-icon">📸</span><div><div class="bk-opt-label">Share Your Space</div><div class="bk-opt-sub">Send photos via email or WhatsApp</div></div></div>
+        <div class="bk-opt"><span class="bk-opt-icon">🗓</span><div><div class="bk-opt-label">Book a Site Visit</div><div class="bk-opt-sub">We come to your home for a full assessment</div></div></div>
+      </div>
+      <a class="btn-warm" href="tel:">Request Moodboard</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="fb">
+    <a style="font-family:var(--fd);font-size:1rem;color:var(--cream);text-decoration:none;letter-spacing:.1em" href="#">The Firm</a>
+    <p>Eleganza. Pure. Award-winning interior design in Milan.</p>
+  </div>
+  <div class="fc"><h4>Services</h4><ul><li><a href="#">Bespoke Interiors</a></li><li><a href="#">Full Renovation</a></li><li><a href="#">Space Planning</a></li><li><a href="#">Furniture Curation</a></li></ul></div>
+  <div class="fc"><h4>Studio</h4><ul><li><a href="#">About Us</a></li><li><a href="#">Portfolio</a></li><li><a href="#">Process</a></li><li><a href="#">Journal</a></li></ul></div>
+  <div class="fc"><h4>Connect</h4><ul><li><a href="#">Milan Studio</a></li><li><a href="#">Book a Consult</a></li><li><a href="#">Instagram</a></li></ul></div>
+</footer>
+<div class="fbar"><span>© 2025 The Firm · Milan</span><span>Interior Design Studio · All Rights Reserved</span></div>
+
+<script>
+window.addEventListener('load', function() {
+  // Nav scroll behavior
+  var nav = document.getElementById('main-nav');
+  window.addEventListener('scroll', function() {
+    nav.classList.toggle('scrolled', window.scrollY > 80);
+  });
+
+  if (typeof gsap === 'undefined') return;
+  gsap.registerPlugin(ScrollTrigger);
+
+  // Hero entrance
+  gsap.set(['#hero-pre','#hero-h1','#hero-bottom'], {y: 50, opacity: 0});
+  gsap.to(['#hero-pre','#hero-h1','#hero-bottom'], {
+    y: 0, opacity: 1, duration: 1.4, stagger: .18, ease: 'power3.out', delay: .3
+  });
+
+  // Hero parallax
+  gsap.to('#hero-img', {
+    yPercent: 20,
+    ease: 'none',
+    scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: 1 }
+  });
+
+  // Manifesto parallax
+  gsap.to('#mani-bg', {
+    yPercent: 22,
+    ease: 'none',
+    scrollTrigger: { trigger: '.manifesto', start: 'top bottom', end: 'bottom top', scrub: 1.2 }
+  });
+
+  // Portfolio grid
+  gsap.from('.pitem', {
+    opacity: 0, y: 40, stagger: .1, duration: .9, ease: 'power2.out',
+    scrollTrigger: { trigger: '#port-grid', start: 'top 80%' }
+  });
+
+  // Intro stats
+  gsap.from('.ist', {
+    opacity: 0, y: 25, stagger: .1, duration: .7, ease: 'power2.out',
+    scrollTrigger: { trigger: '.intro-stats', start: 'top 85%' }
+  });
+
+  // Service cards
+  gsap.from('.svc-card', {
+    opacity: 0, y: 30, stagger: .07, duration: .7, ease: 'power2.out',
+    scrollTrigger: { trigger: '.svc-grid', start: 'top 80%' }
+  });
+
+  // Testimonials
+  gsap.from('.tc', {
+    opacity: 0, x: 30, stagger: .12, duration: .8, ease: 'power2.out',
+    scrollTrigger: { trigger: '.t-cards', start: 'top 80%' }
+  });
+
+  // Process
+  gsap.from('.pl-step', {
+    opacity: 0, y: 30, stagger: .1, duration: .7, ease: 'power2.out',
+    scrollTrigger: { trigger: '.process-line', start: 'top 80%' }
+  });
+});
+</script>
+<script src="https://kinsley-nonconducting-faustino.ngrok-free.dev/tracking.js" data-lead-id="{{LEAD_ID}}"></script>
+</body>
+</html>
