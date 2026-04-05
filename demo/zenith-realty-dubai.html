@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>The Firm — Architectural Excellence</title>
+<meta name="description" content="Nature. Perfected."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js" defer></script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#111318;--fg:#e8e4dc;--accent:#e05c20;--muted:#6a7080;--steel:#1a1e26;--fd:'Archivo Black',sans-serif;--fb:'Archivo',sans-serif}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--fg);font-family:var(--fb);font-weight:300;overflow-x:hidden;line-height:1.65}
+
+/* EMERGENCY BANNER */
+.emergency-banner{background:var(--accent);padding:.7rem 2rem;display:flex;align-items:center;justify-content:center;gap:1.5rem;position:sticky;top:0;z-index:300}
+.eb-text{font-family:var(--fd);font-size:.82rem;letter-spacing:.1em;text-transform:uppercase;color:#fff;font-weight:600}
+.eb-btn{font-family:var(--fd);font-size:.75rem;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);background:#fff;padding:.38rem 1.2rem;text-decoration:none;font-weight:700;transition:opacity .25s;flex-shrink:0}
+.eb-btn:hover{opacity:.88}
+
+nav{position:sticky;top:2.6rem;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:1.2rem 3.5rem;background:rgba(17,19,24,.95);backdrop-filter:blur(12px);border-bottom:1px solid rgba(224,92,32,.15)}
+.logo{font-family:var(--fd);font-size:1.3rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--fg);text-decoration:none;display:flex;align-items:center;gap:.6rem}
+.logo-sq{width:8px;height:8px;background:var(--accent);transform:rotate(45deg)}
+.nav-links{display:flex;gap:2rem;list-style:none}
+.nav-links a{font-family:var(--fd);font-size:.72rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(232,228,220,.5);text-decoration:none;transition:color .25s}
+.nav-links a:hover{color:var(--accent)}
+.nav-cta{font-family:var(--fd);font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:#fff;background:var(--accent);padding:.7rem 1.8rem;text-decoration:none;font-weight:600;transition:opacity .3s}
+.nav-cta:hover{opacity:.85}
+
+/* HERO */
+.hero{position:relative;height:95vh;min-height:640px;display:flex;align-items:center;overflow:hidden}
+.hero-parallax{position:absolute;inset:-18%;will-change:transform}
+.hero-parallax img,.hero-parallax>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;opacity:.3;filter:saturate(.6)}
+<img src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=1600&q=80" alt="Zenith Realty Hero" style="width:100%;height:100%;object-fit:cover;object-position:center top;"/>
+.hero-parallax::after{content:'';position:absolute;inset:0;background:linear-gradient(100deg,rgba(17,19,24,.97) 0%,rgba(17,19,24,.7) 55%,rgba(17,19,24,.15) 100%)}
+.hero-content{position:relative;z-index:2;padding:0 4rem;max-width:780px}
+.hero-eyebrow{font-family:var(--fd);font-size:.72rem;letter-spacing:.3em;text-transform:uppercase;color:var(--accent);margin-bottom:1.5rem;display:flex;align-items:center;gap:.8rem}
+.hero-eyebrow::before{content:'';width:30px;height:2px;background:var(--accent)}
+h1.hero-h1{font-family:var(--fd);font-size:clamp(3.5rem,9vw,8rem);font-weight:700;line-height:.92;text-transform:uppercase;color:var(--fg);margin-bottom:2rem}
+h1.hero-h1 span{color:var(--accent)}
+.hero-desc{font-size:1.02rem;color:rgba(232,228,220,.62);max-width:440px;line-height:1.75;margin-bottom:3rem}
+.hero-btns{display:flex;gap:1.2rem;flex-wrap:wrap}
+.btn-orange{display:inline-block;font-family:var(--fd);font-size:.78rem;letter-spacing:.18em;text-transform:uppercase;color:#fff;background:var(--accent);padding:1rem 2.6rem;text-decoration:none;font-weight:600;transition:opacity .3s}
+.btn-orange:hover{opacity:.85}
+.btn-outline-o{display:inline-flex;align-items:center;gap:.5rem;font-family:var(--fd);font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(232,228,220,.65);border:1.5px solid rgba(224,92,32,.35);padding:.95rem 2rem;text-decoration:none;transition:all .3s}
+.btn-outline-o:hover{border-color:var(--accent);color:var(--accent)}
+
+/* TRUST STRIP */
+.trust-strip{display:grid;grid-template-columns:repeat(5,1fr);background:var(--steel);border-top:2px solid var(--accent)}
+.trust-item{padding:1.8rem 2rem;border-right:1px solid rgba(224,92,32,.1);text-align:center;display:flex;flex-direction:column;align-items:center;gap:.5rem}
+.trust-item:last-child{border-right:none}
+.trust-icon{font-size:1.5rem}
+.trust-label{font-family:var(--fd);font-size:.65rem;letter-spacing:.15em;text-transform:uppercase;color:var(--muted)}
+
+/* STATS */
+.stats-bar{display:grid;grid-template-columns:repeat(4,1fr);border-bottom:1px solid rgba(224,92,32,.1)}
+.sitem{padding:2.8rem 3rem;border-right:1px solid rgba(224,92,32,.08)}
+.sitem:last-child{border-right:none}
+.snum{font-family:var(--fd);font-size:2.8rem;font-weight:700;color:var(--accent);line-height:1;margin-bottom:.3rem}
+.slbl{font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+
+/* SERVICES */
+.section{padding:7rem 3.5rem}
+.sec-label{font-family:var(--fd);font-size:.65rem;letter-spacing:.35em;text-transform:uppercase;color:var(--accent);margin-bottom:.8rem;display:flex;align-items:center;gap:.8rem}
+.sec-label::before{content:'';width:25px;height:2px;background:var(--accent)}
+.sec-h{font-family:var(--fd);font-size:clamp(2.2rem,5vw,4.5rem);font-weight:700;text-transform:uppercase;color:var(--fg);line-height:.96}
+.sec-h span{color:var(--accent)}
+.sec-top{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:4rem}
+.svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5px;background:rgba(224,92,32,.07)}
+.sv{background:var(--bg);padding:2.8rem 2.5rem;position:relative;overflow:hidden;transition:background .3s}
+.sv::after{content:'';position:absolute;left:0;top:0;bottom:0;width:0;background:var(--accent);transition:width .4s ease}
+.sv:hover{background:rgba(255,255,255,.02)}
+.sv:hover::after{width:3px}
+.sv-num{font-family:var(--fd);font-size:.7rem;letter-spacing:.2em;color:var(--accent);margin-bottom:1.3rem}
+.sv-name{font-family:var(--fd);font-size:1.3rem;font-weight:600;text-transform:uppercase;color:var(--fg);margin-bottom:.8rem}
+.sv-body{font-size:.85rem;color:var(--muted);line-height:1.65}
+
+/* ABOUT SPLIT */
+.about-split{display:grid;grid-template-columns:1fr 1fr;min-height:75vh}
+.aimg{position:relative;overflow:hidden;background:var(--steel)}
+.aimg img{width:100%;height:100%;object-fit:cover;display:block;filter:saturate(.8)}
+<img src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=1600&q=80" alt="About Zenith Realty" style="width:100%;height:100%;object-fit:cover;"/>
+.atext{background:var(--steel);padding:6rem 4.5rem;display:flex;flex-direction:column;justify-content:center;border-left:3px solid var(--accent)}
+.atext .sec-h{font-size:clamp(2rem,4vw,3.5rem)}
+.abody{font-size:.95rem;color:rgba(232,228,220,.6);line-height:1.8;margin:1.5rem 0 2rem;max-width:440px}
+.badges{display:grid;grid-template-columns:1fr 1fr;gap:.8rem;margin-bottom:2.5rem}
+.badge{background:rgba(224,92,32,.08);border:1px solid rgba(224,92,32,.18);padding:.9rem 1.2rem;display:flex;align-items:center;gap:.6rem;font-size:.78rem;color:rgba(232,228,220,.75)}
+.badge::before{content:'✓';color:var(--accent);font-weight:700;flex-shrink:0}
+
+/* PROJECT GRID */
+.projects-section{padding:7rem 3.5rem;background:var(--steel)}
+.proj-grid{display:grid;grid-template-columns:1fr 1fr 1fr;grid-template-rows:280px 280px;gap:1.5px;background:rgba(224,92,32,.06);margin-top:4rem}
+.pj{position:relative;overflow:hidden;background:rgba(255,255,255,.03)}
+.pj.wide{grid-column:span 2}
+.pj img{width:100%;height:100%;object-fit:cover;transition:transform .8s;display:block;filter:saturate(.7)}
+.pj:hover img{transform:scale(1.06);filter:saturate(1)}
+<img src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=1600&q=80" alt="Procedure Result" style="width:100%;height:100%;object-fit:cover;"/>
+.pj-label{position:absolute;bottom:0;left:0;right:0;padding:1.5rem 1.8rem;background:linear-gradient(to top,rgba(17,19,24,.88),transparent)}
+.pj-tag{font-family:var(--fd);font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin-bottom:.3rem}
+.pj-name{font-family:var(--fd);font-size:1rem;font-weight:600;text-transform:uppercase;color:var(--fg)}
+
+/* PROCESS */
+.process-section{padding:6rem 3.5rem}
+.proc-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:4rem;position:relative}
+.proc-steps::before{content:'';position:absolute;top:2.2rem;left:12%;right:12%;height:2px;background:linear-gradient(to right,transparent,var(--accent),transparent)}
+.ps{text-align:center;padding:0 1rem}
+.ps-num{width:4rem;height:4rem;border-radius:0;border:2px solid var(--accent);display:flex;align-items:center;justify-content:center;font-family:var(--fd);font-size:1rem;font-weight:700;color:var(--accent);margin:0 auto 1.5rem;background:var(--bg);position:relative;z-index:1}
+.ps-title{font-family:var(--fd);font-size:.95rem;font-weight:600;text-transform:uppercase;color:var(--fg);margin-bottom:.5rem}
+.ps-body{font-size:.8rem;color:var(--muted);line-height:1.6}
+
+/* TESTIMONIALS */
+.t-section{padding:7rem 3.5rem;background:var(--steel)}
+.t-layout{display:grid;grid-template-columns:1fr 2fr;gap:5rem;align-items:center;margin-top:4rem}
+.t-cards{display:flex;flex-direction:column;gap:2px}
+.tc{background:var(--bg);padding:2rem 2.3rem;border-left:3px solid transparent;transition:border-color .3s}
+.tc:hover{border-left-color:var(--accent)}
+.tc-stars{color:var(--accent);font-size:.8rem;letter-spacing:.1em;margin-bottom:.8rem}
+.tc-text{font-size:.92rem;color:var(--fg);line-height:1.65;margin-bottom:1rem;font-style:italic}
+.tc-who{font-family:var(--fd);font-size:.65rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+.tc-who strong{color:var(--accent);font-weight:600}
+
+/* CTA */
+.cta-section{position:relative;min-height:50vh;display:flex;align-items:center;justify-content:center;text-align:center;overflow:hidden;padding:6rem 2rem}
+.cta-parallax{position:absolute;inset:-18%;will-change:transform}
+.cta-parallax img,.cta-parallax>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.22;filter:saturate(.5)}
+
+.cta-parallax::after{content:'';position:absolute;inset:0;background:rgba(17,19,24,.85)}
+.cta-inner{position:relative;z-index:2;max-width:680px}
+.cta-h{font-family:var(--fd);font-size:clamp(2.8rem,7vw,6rem);font-weight:700;text-transform:uppercase;color:var(--fg);line-height:.96;margin-bottom:1.2rem}
+.cta-h span{color:var(--accent)}
+.cta-sub{font-size:.95rem;color:rgba(232,228,220,.55);margin-bottom:3rem}
+
+/* FOOTER */
+footer{background:#0a0c10;padding:4rem 3.5rem;display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:3rem;border-top:2px solid var(--accent)}
+.fb p{font-size:.8rem;color:var(--muted);line-height:1.7;margin-top:.8rem;max-width:240px}
+.fc h4{font-family:var(--fd);font-size:.65rem;letter-spacing:.22em;text-transform:uppercase;color:var(--accent);margin-bottom:1.1rem}
+.fc ul{list-style:none;display:flex;flex-direction:column;gap:.55rem}
+.fc ul a{font-size:.8rem;color:var(--muted);text-decoration:none;transition:color .2s}
+.fc ul a:hover{color:var(--fg)}
+.fbar{padding:1.5rem 3.5rem;border-top:1px solid rgba(224,92,32,.1);display:flex;justify-content:space-between;font-size:.68rem;color:var(--muted)}
+
+@media(max-width:900px){
+  .emergency-banner{padding:.6rem 1rem;gap:.8rem}.eb-text{font-size:.7rem}
+  nav{padding:1rem 1.5rem;top:2.4rem}.nav-links{display:none}
+  .hero-content{padding:0 1.5rem}.hero-h1{font-size:clamp(2.8rem,15vw,6rem)}
+  .trust-strip{grid-template-columns:1fr 1fr}
+  .stats-bar{grid-template-columns:1fr 1fr}
+  .section{padding:5rem 1.5rem}.svc-grid{grid-template-columns:1fr}
+  .about-split{grid-template-columns:1fr}.aimg{height:50vw}.atext{padding:3rem 1.5rem}
+  .projects-section{padding:5rem 1.5rem}.proj-grid{grid-template-columns:1fr;grid-template-rows:auto}.pj.wide{grid-column:span 1}
+  .process-section{padding:4rem 1.5rem}.proc-steps{grid-template-columns:1fr 1fr}.proc-steps::before{display:none}
+  .t-section{padding:5rem 1.5rem}.t-layout{grid-template-columns:1fr;gap:2rem}
+  footer{grid-template-columns:1fr;gap:2rem;padding:3rem 1.5rem}.fbar{padding:1.2rem 1.5rem;flex-direction:column;gap:.4rem}
+}
+</style>
+</head>
+<body>
+<div class="emergency-banner">
+  <span class="eb-text">🚨 Emergency Architectural Excellence in Dubai — We Respond in Under 2 Hours</span>
+  <a class="eb-btn" href="tel:">Call Now</a>
+</div>
+<nav>
+  <a class="logo" href="#"><span class="logo-sq"></span>The Firm</a>
+  <ul class="nav-links"><li><a href="#services">Services</a></li><li><a href="#projects">Projects</a></li><li><a href="#about">About</a></li><li><a href="#contact">Contact</a></li></ul>
+  <a class="nav-cta" href="#contact">Private Showing</a>
+</nav>
+
+<section class="hero" id="home">
+  <div class="hero-parallax" id="hero-bg"><img src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=1600&q=80" alt="Zenith Realty Hero" style="width:100%;height:100%;object-fit:cover;object-position:center top;"/></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">Architectural Excellence · Dubai</p>
+    <h1 class="hero-h1">Built<br/><span>Strong.</span><br/>Done Right.</h1>
+    <p class="hero-desc">Nature. Perfected. Licensed, insured, and trusted by hundreds of property owners across Dubai.</p>
+    <div class="hero-btns">
+      <a class="btn-orange" href="#contact">Private Showing</a>
+      <a class="btn-outline-o" href="#projects">Portfolio →</a>
+    </div>
+  </div>
+</section>
+
+<div class="trust-strip">
+  <div class="trust-item"><span class="trust-icon">🛡️</span><span class="trust-label">Licensed & Insured</span></div>
+  <div class="trust-item"><span class="trust-icon">⚡</span><span class="trust-label">2-Hour Response</span></div>
+  <div class="trust-item"><span class="trust-icon">📋</span><span class="trust-label">Free Estimates</span></div>
+  <div class="trust-item"><span class="trust-icon">⭐</span><span class="trust-label">5-Star Rated</span></div>
+  <div class="trust-item"><span class="trust-icon">🔧</span><span class="trust-label">10yr Warranty</span></div>
+</div>
+
+<div class="stats-bar">
+  <div class="sitem"><div class="snum">1,200+</div><div class="slbl">Jobs Completed</div></div>
+  <div class="sitem"><div class="snum">18yr</div><div class="slbl">In Dubai</div></div>
+  <div class="sitem"><div class="snum">4.9★</div><div class="slbl">Avg Rating</div></div>
+  <div class="sitem"><div class="snum">2hr</div><div class="slbl">Emergency Response</div></div>
+</div>
+
+<section class="section" id="services">
+  <div class="sec-top">
+    <div><p class="sec-label">Our Services</p><h2 class="sec-h">What We <span>Handle</span></h2></div>
+    <a class="btn-outline-o" href="#contact">Free Quote →</a>
+  </div>
+  <div class="svc-grid">
+    <div class="sv"><div class="sv-num">01</div><h3 class="sv-name">Architectural Excellence</h3><p class="sv-body">Bespoke architectural design and luxury real estate acquisitions in Dubai. Complete service from assessment to final inspection, done right the first time.</p></div>
+    <div class="sv"><div class="sv-num">02</div><h3 class="sv-name">Emergency Repairs</h3><p class="sv-body">Available 24/7 for emergency situations. We reach Dubai clients within 2 hours guaranteed.</p></div>
+    <div class="sv"><div class="sv-num">03</div><h3 class="sv-name">Full Inspection</h3><p class="sv-body">Thorough property inspection with detailed reports, photos, and clear pricing — no hidden costs.</p></div>
+    <div class="sv"><div class="sv-num">04</div><h3 class="sv-name">New Installation</h3><p class="sv-body">Premium materials, manufacturer-certified installation, and warranties that actually mean something.</p></div>
+    <div class="sv"><div class="sv-num">05</div><h3 class="sv-name">Maintenance Plans</h3><p class="sv-body">Scheduled preventive maintenance to protect your investment and avoid costly emergency repairs.</p></div>
+    <div class="sv"><div class="sv-num">06</div><h3 class="sv-name">Commercial Services</h3><p class="sv-body">We handle commercial and multi-property clients across Dubai with dedicated account management.</p></div>
+  </div>
+</section>
+
+<div class="about-split" id="about">
+  <div class="aimg"><img src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=1600&q=80" alt="About Zenith Realty" style="width:100%;height:100%;object-fit:cover;"/></div>
+  <div class="atext">
+    <p class="sec-label">About The Firm</p>
+    <h2 class="sec-h">Dubai's Most<br/><span>Trusted</span> Crew.</h2>
+    <p class="abody">Nature. Perfected. We've been showing up on time and doing the work right across Dubai for nearly two decades. No excuses, no shortcuts, no surprises on the invoice.</p>
+    <div class="badges">
+      <div class="badge">Licensed Contractor</div><div class="badge">Fully Insured</div>
+      <div class="badge">10yr Warranty</div><div class="badge">Free Estimates</div>
+      <div class="badge">Dubai Based</div><div class="badge">24/7 Emergency</div>
+    </div>
+    <a class="btn-orange" href="#contact" style="align-self:flex-start">Private Showing</a>
+  </div>
+</div>
+
+<section class="projects-section" id="projects">
+  <p class="sec-label">Our Work</p>
+  <h2 class="sec-h">Completed <span>Projects</span></h2>
+  <div class="proj-grid">
+    <div class="pj wide">
+      <img src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=800&q=80" alt="Procedure Result" style="width:100%;height:100%;object-fit:cover;"/>
+      <div class="pj-label"><div class="pj-tag">Residential · Dubai</div><div class="pj-name">Full Architectural Excellence Replacement</div></div>
+    </div>
+    <div class="pj">
+      <div class="pj-label"><div class="pj-tag">Commercial</div><div class="pj-name">Industrial Facility</div></div>
+    </div>
+    <div class="pj">
+      <div class="pj-label"><div class="pj-tag">Emergency Repair</div><div class="pj-name">Storm Damage Recovery</div></div>
+    </div>
+    <div class="pj">
+      <div class="pj-label"><div class="pj-tag">Residential</div><div class="pj-name">New Construction</div></div>
+    </div>
+    <div class="pj">
+      <div class="pj-label"><div class="pj-tag">Renovation</div><div class="pj-name">Heritage Property</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="process-section">
+  <p class="sec-label">How We Work</p>
+  <h2 class="sec-h">Simple. <span>Reliable.</span> Done.</h2>
+  <div class="proc-steps">
+    <div class="ps"><div class="ps-num">01</div><h3 class="ps-title">Free Inspection</h3><p class="ps-body">We come to you for a detailed assessment — at no cost, no obligation, same-day available.</p></div>
+    <div class="ps"><div class="ps-num">02</div><h3 class="ps-title">Clear Quote</h3><p class="ps-body">Fixed-price estimate with no hidden fees. What we quote is what you pay — full stop.</p></div>
+    <div class="ps"><div class="ps-num">03</div><h3 class="ps-title">Expert Work</h3><p class="ps-body">Our certified crew arrives on time, protects your property, and delivers quality workmanship.</p></div>
+    <div class="ps"><div class="ps-num">04</div><h3 class="ps-title">Guaranteed</h3><p class="ps-body">Every job comes with a 10-year warranty and a final walkthrough so you're 100% satisfied.</p></div>
+  </div>
+</section>
+
+<section class="t-section">
+  <p class="sec-label">What Clients Say</p>
+  <h2 class="sec-h">Real Reviews. <span>Real Results.</span></h2>
+  <div class="t-layout">
+    <div><p style="font-size:.92rem;color:var(--muted);line-height:1.78;margin-top:1rem">Over 1,200 completed jobs in Dubai. Every one of them left with a 5-star experience — and a roof (or system) they can rely on.</p><a class="btn-orange" href="#contact" style="margin-top:2rem;display:inline-block">Private Showing</a></div>
+    <div class="t-cards">
+      <div class="tc"><div class="tc-stars">★★★★★</div><p class="tc-text">"The Firm arrived within the hour of my emergency call. Had the repair done same day. Absolute professionals."</p><p class="tc-who"><strong>James K.</strong> — Emergency Client, Dubai</p></div>
+      <div class="tc"><div class="tc-stars">★★★★★</div><p class="tc-text">"Three quotes and The Firm was both the most detailed and the most honest. Work was flawless."</p><p class="tc-who"><strong>Patricia L.</strong> — Dubai</p></div>
+      <div class="tc"><div class="tc-stars">★★★★★</div><p class="tc-text">"Using them for our entire commercial portfolio now. The only contractor in Dubai I'll ever recommend."</p><p class="tc-who"><strong>Commercial Property Manager</strong></p></div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-section" id="contact">
+  <div class="cta-parallax" id="cta-bg"></div>
+  <div class="cta-inner">
+    <p class="sec-label" style="justify-content:center">Free Estimate · No Obligation</p>
+    <h2 class="cta-h">Let's Get <span>It Done.</span></h2>
+    <p class="cta-sub">Bespoke architectural design and luxury real estate acquisitions in Dubai. Serving Dubai with licensed, insured, guaranteed work.</p>
+    <a class="btn-orange" href="tel:" style="font-size:.85rem;padding:1.1rem 3.2rem">Private Showing</a>
+  </div>
+</section>
+
+<footer>
+  <div class="fb"><a class="logo" href="#"><span class="logo-sq"></span>The Firm</a><p>Nature. Perfected. Serving Dubai with honest, expert work for 18+ years.</p></div>
+  <div class="fc"><h4>Services</h4><ul><li><a href="#">Architectural Excellence</a></li><li><a href="#">Emergency Repairs</a></li><li><a href="#">Inspections</a></li><li><a href="#">Commercial</a></li></ul></div>
+  <div class="fc"><h4>Company</h4><ul><li><a href="#">About Us</a></li><li><a href="#">Projects</a></li><li><a href="#">Testimonials</a></li><li><a href="#">Warranty</a></li></ul></div>
+  <div class="fc"><h4>Contact</h4><ul><li><a href="#">Free Estimate</a></li><li><a href="#">Dubai Office</a></li><li><a href="#">24/7 Emergency</a></li></ul></div>
+</footer>
+<div class="fbar"><span>© 2025 The Firm · Dubai · Licensed & Insured</span><span>All Rights Reserved</span></div>
+
+<script>
+window.addEventListener('load',function(){
+  if(typeof gsap==='undefined'||typeof ScrollTrigger==='undefined')return;
+  gsap.registerPlugin(ScrollTrigger);
+  gsap.to('#hero-bg',{yPercent:28,ease:'none',scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:true}});
+  gsap.to('#cta-bg',{yPercent:22,ease:'none',scrollTrigger:{trigger:'.cta-section',start:'top bottom',end:'bottom top',scrub:true}});
+  gsap.set(['.hero-eyebrow','.hero-h1','.hero-desc','.hero-btns'],{y:40,opacity:0});
+  gsap.to(['.hero-eyebrow','.hero-h1','.hero-desc','.hero-btns'],{y:0,opacity:1,duration:1,stagger:.12,ease:'power3.out',delay:.2});
+  gsap.from('.sitem',{opacity:0,y:30,stagger:.1,duration:.8,ease:'power3.out',scrollTrigger:{trigger:'.stats-bar',start:'top 85%'}});
+  gsap.from('.sv',{opacity:0,y:35,stagger:.07,duration:.75,ease:'power2.out',scrollTrigger:{trigger:'.svc-grid',start:'top 80%'}});
+  gsap.from('.ps',{opacity:0,y:30,stagger:.12,duration:.8,ease:'power3.out',scrollTrigger:{trigger:'.proc-steps',start:'top 80%'}});
+  gsap.from('.pj',{opacity:0,scale:.96,stagger:.08,duration:.8,ease:'power3.out',scrollTrigger:{trigger:'.proj-grid',start:'top 80%'}});
+  gsap.from('.tc',{opacity:0,x:25,stagger:.1,duration:.7,ease:'power2.out',scrollTrigger:{trigger:'.t-cards',start:'top 80%'}});
+});
+</script>
+<script src="https://kinsley-nonconducting-faustino.ngrok-free.dev/tracking.js" data-lead-id="{{LEAD_ID}}"></script>
+</body>
+</html>
